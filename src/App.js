@@ -1,40 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ToolbarPage from "./pages/ToolbarPage";
-import IndexPage from "./pages/IndexPage";
-import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
-import UploadPage from "./pages/UploadPage";
-import UserPage from "./pages/UserPage";
-import SinglePostPage from "./pages/SinglePostPage";
-import EditPostPage  from "./pages/EditPostPage";
+import UsersPage from "./pages/UsersPage";
+import User from "./components/User";
+import UserDetailsPage from "./pages/UserDetailsPage";
+import UserTodosPage from "./pages/UserTodosPage";
+import UserAlbumPage from "./pages/UserAlbumPage";
+import UserPostsPage from "./pages/UserPostsPage";
+import OnePostPage from "./pages/OnePostPage";
+import UserPhotosPage from "./pages/UserPhotosPage";
 
 import './App.css'
 
 const App = () => {
-    const [secretKey, setSecretKey] = useState(null);
-    const [loggedInUsername, setLoggedInUsername] = useState(null);
 
-    console.log("Secret Key in App:", secretKey);
-    console.log("Logged In Username in App:", loggedInUsername);
     return (
         <BrowserRouter>
             <div className="app-layout">
-                <ToolbarPage secretKey={secretKey} />
                 <div className="content">
                     <Routes>
-                        <Route path="/" element={<IndexPage secretKey={secretKey} loggedInUsername={loggedInUsername} />} />
-                        <Route path="/register" element={<RegisterPage />} />
-                        <Route path="/login" element={<LoginPage setSecretKey={setSecretKey} setLoggedInUsername={setLoggedInUsername} />} />
-                        <Route path="/upload" element={<UploadPage secretKey={secretKey} />} />
-                        <Route path="/singlepost/:username/:post_id" element={<SinglePostPage />} />
-                        <Route path="/user/:username" element={<UserPage />} />
-                        <Route
-                            path="/editpost/:id"
-                            element={<EditPostPage secretKey={secretKey} />}
-                        />
-
-                    </Routes>
+                            <Route path="/" element={<UsersPage />} />
+                            <Route path="/user" element={<User />} />
+                            <Route path="/user/:id" element={<UserDetailsPage />} />
+                            <Route path="/user/:id/todos" element={<UserTodosPage />} />
+                            <Route path="/user/:id/albums" element={<UserAlbumPage />} />
+                            <Route path="/user/:id/posts" element={<UserPostsPage />} />
+                            <Route path="/post/:postId" element={<OnePostPage />} />
+                            <Route path="/album/:albumId/photos" element={<UserPhotosPage />} />
+                        </Routes>
                 </div>
             </div>
         </BrowserRouter>
