@@ -1,36 +1,37 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import UsersPage from "./pages/UsersPage";
-import User from "./components/User";
-import UserDetailsPage from "./pages/UserDetailsPage";
-import UserTodosPage from "./pages/UserTodosPage";
-import UserAlbumPage from "./pages/UserAlbumPage";
-import UserPostsPage from "./pages/UserPostsPage";
-import OnePostPage from "./pages/OnePostPage";
-import UserPhotosPage from "./pages/UserPhotosPage";
+import ToolbarPage from "./pages/ToolbarPage";
+import RegisterZustPage from "./pages/RegisterZustPage";
+import LoginZustPage from "./pages/LoginZustPage";
+import ProfileZustPage from "./pages/ProfileZustPage";
+import UsersListZustPage from "./pages/UsersListZustPage";
+import CreatePostPage from "./pages/CreatePostPage";
+import AllPostsPage from "./pages/AllPostsPage";
+import SinglePostZustPage from "./pages/SinglePostZustPage";
+import ConversationsPage from "./pages/ConversationsPage";
 
 import './App.css'
 
-const App = () => {
-
+function App() {
     return (
         <BrowserRouter>
             <div className="app-layout">
+                <ToolbarPage />
                 <div className="content">
                     <Routes>
-                            <Route path="/" element={<UsersPage />} />
-                            <Route path="/user" element={<User />} />
-                            <Route path="/user/:id" element={<UserDetailsPage />} />
-                            <Route path="/user/:id/todos" element={<UserTodosPage />} />
-                            <Route path="/user/:id/albums" element={<UserAlbumPage />} />
-                            <Route path="/user/:id/posts" element={<UserPostsPage />} />
-                            <Route path="/post/:postId" element={<OnePostPage />} />
-                            <Route path="/album/:albumId/photos" element={<UserPhotosPage />} />
-                        </Routes>
+                        <Route path="/register" element={<RegisterZustPage />} />
+                        <Route path="/login" element={<LoginZustPage />} />
+                        <Route path="/profile" element={<ProfileZustPage />} />
+                        <Route path="/users-list" element={<UsersListZustPage />} />
+                        <Route path="/create-post" element={<CreatePostPage />} />
+                        <Route path="/all-posts" element={<AllPostsPage />} />
+                        <Route path="/post/:id" element={<SinglePostZustPage />} />
+                        <Route path="/conversations" element={<ConversationsPage />} />
+                    </Routes>
                 </div>
             </div>
         </BrowserRouter>
     );
-};
+}
 
 export default App;
