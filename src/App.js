@@ -1,35 +1,19 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ToolbarPage from "./pages/ToolbarPage";
-import RegisterZustPage from "./pages/RegisterZustPage";
-import LoginZustPage from "./pages/LoginZustPage";
-import ProfileZustPage from "./pages/ProfileZustPage";
-import UsersListZustPage from "./pages/UsersListZustPage";
-import CreatePostPage from "./pages/CreatePostPage";
-import AllPostsPage from "./pages/AllPostsPage";
-import SinglePostZustPage from "./pages/SinglePostZustPage";
-import ConversationsPage from "./pages/ConversationsPage";
-
-import './App.css'
+import './App.css';
+import SignUpPage from "./pages/SignUpPage";
+import SignInPage from "./pages/SignInPage";
+import UserDashboardPage from "./pages/UserDashboardPage";
+import PeopleList from "./pages/PeopleList";
 
 function App() {
     return (
         <BrowserRouter>
-            <div className="app-layout">
-                <ToolbarPage />
-                <div className="content">
-                    <Routes>
-                        <Route path="/register" element={<RegisterZustPage />} />
-                        <Route path="/login" element={<LoginZustPage />} />
-                        <Route path="/profile" element={<ProfileZustPage />} />
-                        <Route path="/users-list" element={<UsersListZustPage />} />
-                        <Route path="/create-post" element={<CreatePostPage />} />
-                        <Route path="/all-posts" element={<AllPostsPage />} />
-                        <Route path="/post/:id" element={<SinglePostZustPage />} />
-                        <Route path="/conversations" element={<ConversationsPage />} />
-                    </Routes>
-                </div>
-            </div>
+            <Routes>
+                <Route path="/" element={<SignUpPage />} />
+                <Route path="/signin" element={<SignInPage />} />
+                <Route path="/dashboard" element={<UserDashboardPage />} />
+                <Route path="/users" element={<PeopleList />} />
+            </Routes>
         </BrowserRouter>
     );
 }
