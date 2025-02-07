@@ -1,43 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import mainStore from "../store/main";
 
+const API_URL = "http://localhost:2001";
+
 const PeopleList = () => {
-    const { user } = mainStore(state => state);
-    const navigate = useNavigate();
-    const [users, setUsers] = useState([]);
+    const { user, users, setUsers } = mainStore(state => state);
 
     useEffect(() => {
-        if (!user) {
-            navigate("/signin");
-            return;
-        }
+        const token = localStorage.getItem("token");
 
-        fetch("http://localhost:2001/users")
-            .then(res => res.json())
-            .then(data => setUsers(data));
-    }, [user, navigate]);
+        console.log("🔹 Sending Token in /users Request:", token); // ✅ Debugging Log
 
-    function pokeUser(targetUsername) {
-
-        if (!targetUsername) {
-            alert("Error: Target username is undefined!");
-            return;
-        }
-
-        const options = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ secretKey: user.secretKey, toUser: targetUsername }),
-        };
-
-        fetch("http://localhost:2001/poke", options)
+        fetch(`${API_URL}/users`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,  // ✅ Send token with request
+            },
+        })
             .then(res => res.json())
             .then(data => {
-                alert(data.message);
-            });
-    }
-
+                console.log("✅ Users received:", data); // ✅ Debugging Log
+                if (Array.isArray(data)) {
+                    setUsers(data);
+                }
+            })
+            .catch(err => console.error("❌ Error fetching users:", err));
+    }, [user]);
 
     return (
         <div>
@@ -46,11 +34,8 @@ const PeopleList = () => {
                 <p>No users found.</p>
             ) : (
                 users.map((u, i) => (
-                    <div key={i} className="border p-2 m-2 d-flex">
+                    <div key={i} className="user-box" style={{ backgroundColor: u.color }}>
                         <span>{u.username}</span>
-                        {u.username !== user.username && (
-                            <button onClick={() => pokeUser(u.username)}>Poke</button>
-                        )}
                     </div>
                 ))
             )}
