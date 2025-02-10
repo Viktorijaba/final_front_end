@@ -1,21 +1,40 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
-import SignUpPage from "./pages/SignUpPage";
-import SignInPage from "./pages/SignInPage";
-import UserDashboardPage from "./pages/UserDashboardPage";
-import PeopleList from "./pages/PeopleList";
-
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import IndexPage from "./pages/IndexPage";
+import mainStore from "./store/main";
+import InventoryPage from "./pages/InventoryPage";
+import Toolbar from "./components/Toolbar";
+import Requests from "./pages/Requests";
+import Users from "./pages/Users";
+import UserPage from "./pages/UserPage";
 
 function App() {
+    const {user} = mainStore(state => state)
+
+
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<SignUpPage />} />
-                <Route path="/signin" element={<SignInPage />} />
-                <Route path="/dashboard" element={<UserDashboardPage />} />
-                <Route path="/users" element={<PeopleList />} />
-            </Routes>
-        </BrowserRouter>
+        <div>
+            {/*{error && <ErrorMessage/> }*/}
+
+            <div className=" p-5">
+
+                <BrowserRouter>
+                    {user &&  <Toolbar/>}
+
+                    <Routes>
+                        <Route path="/" element={<IndexPage/>}></Route>
+                        <Route path="/inventory" element={<InventoryPage/>}></Route>
+                        <Route path="/requests" element={<Requests/>}></Route>
+                        <Route path="/users" element={<Users/>}></Route>
+                        <Route path="/user/:username" element={<UserPage/>}></Route>
+
+                    </Routes>
+                </BrowserRouter>
+
+            </div>
+
+        </div>
+
     );
 }
 

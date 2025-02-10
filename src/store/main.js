@@ -1,22 +1,11 @@
-import { create } from "zustand";
+import { create } from 'zustand'
 
-const mainStore = create((set) => ({
-    user: JSON.parse(localStorage.getItem("user")) || null,
-    users: [],
+const useStore = create((set) => ({
+    user: null,
+    // increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
+    // changeName: () => set({ username: "Jonas" }),
+    setUser: (user) => set({ user }),
+}))
 
-    setUser: (user) => {
-        localStorage.setItem("user", JSON.stringify(user));
-        set({ user });
-    },
+export default useStore;
 
-    setUsers: (users) => {
-        set({ users });
-    },
-
-    logoutUser: () => {
-        localStorage.removeItem("user");
-        set({ user: null });
-    },
-}));
-
-export default mainStore;
